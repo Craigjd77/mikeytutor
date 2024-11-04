@@ -97,3 +97,21 @@ button:hover {
 h1 {
     color: #007bff; /* Blue for headings */
 }
+
+.intro {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.intro h1 {
+    color: #007bff; /* Blue for headings */
+}
+
+.intro p {
+    font-size: 1.2em; /* Slightly larger font for readability */
+}

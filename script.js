@@ -10,6 +10,7 @@ let totalQuestions = 10; // Adjusted to match the number of questions
 let questionsToLoad = [];
 let incorrectAttempts = 0; // Track incorrect attempts
 let correctAnswers = 0; // Track correct answers
+let results = []; // Array to store results of each question
 
 // Define players and their teams with correct associations
 const players = [
@@ -256,12 +257,21 @@ function showQuestion() {
     incorrectAttempts = 0; // Reset incorrect attempts for the new question
 }
 
-// Check the user's answer
+// Function to check the user's answer
 function checkAnswer(questionId, correctAnswer) {
     const userAnswer = parseFloat(document.getElementById(`input${questionId}`).value);
     const feedback = document.getElementById(`feedback${questionId}`);
     const steps = document.getElementById(`steps${questionId}`);
     
+    // Store the result for this question
+    const questionResult = {
+        questionId: questionId,
+        userAnswer: userAnswer,
+        correctAnswer: correctAnswer,
+        steps: questionsToLoad[currentQuestionIndex].steps,
+        isCorrect: false
+    };
+
     if (isNaN(userAnswer)) {
         feedback.textContent = "Please enter a valid number.";
         feedback.style.color = "red";
@@ -269,21 +279,25 @@ function checkAnswer(questionId, correctAnswer) {
     }
 
     if (Math.abs(userAnswer - correctAnswer) < 0.01) {
-        feedback.textContent = "Correct!";
+        feedback.textContent = "Correct! Great job, Mikey! 🎉";
         feedback.style.color = "green";
+        questionResult.isCorrect = true; // Mark as correct
+        correctAnswers++;
         steps.innerHTML = questionsToLoad[currentQuestionIndex].steps.map(step => `<p>${step}</p>`).join('');
         steps.style.display = 'block'; // Show solution steps
         document.querySelector('.next-question').disabled = false; // Enable next question button
-        correctAnswers++;
     } else {
-        feedback.textContent = "Incorrect, try again!";
+        feedback.textContent = "Incorrect, try again! You got this, Mikey! 💪";
         feedback.style.color = "red";
-        steps.style.display = 'none'; // Hide solution steps
         incorrectAttempts++;
+        steps.style.display = 'none'; // Hide solution steps
         if (incorrectAttempts >= 2) {
             document.getElementById(`showSolution${questionId}`).style.display = 'inline'; // Show "Show Answer" button
         }
     }
+
+    // Add the result to the results array
+    results.push(questionResult);
 }
 
 // Show the solution for the current question
@@ -307,7 +321,7 @@ function nextQuestion() {
 
 // Generate a report card at the end of the quiz
 function generateReportCard() {
-    const reportWindow = window.open('', 'Report Card', 'width=600,height=400');
+    const reportWindow = window.open('', 'Report Card', 'width=800,height=600');
     reportWindow.document.write(`
         <html>
         <head>
@@ -317,6 +331,10 @@ function generateReportCard() {
                 h1 { text-align: center; }
                 .report-card { border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
                 .score { font-size: 24px; font-weight: bold; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+                th { background-color: #007bff; color: white; }
+                .incorrect { background-color: #ffcccc; } /* Light red for incorrect answers */
             </style>
         </head>
         <body>
@@ -324,6 +342,26 @@ function generateReportCard() {
             <div class="report-card">
                 <p class="score">Score: ${correctAnswers} out of ${totalQuestions}</p>
                 <p>Great job, Mikey! Keep practicing and you'll get even better!</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                            <th>Steps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map(result => `
+                            <tr class="${result.isCorrect ? '' : 'incorrect'}">
+                                <td>Question ${result.questionId}</td>
+                                <td>${result.userAnswer !== undefined ? result.userAnswer : 'N/A'}</td>
+                                <td>${result.correctAnswer}</td>
+                                <td>${result.steps.join('<br>')}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             </div>
         </body>
         </html>
