@@ -1,0 +1,99 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://www.baltimoremagazine.com/wp-content/uploads/2022/03/1992OpeningDay_000123_CMYK.jpg'); /* Replace with the actual path to your image */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the image */
+    color: #333; /* Dark text for readability */
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: rgba(0, 123, 255, 0.8); /* Semi-transparent blue for the header */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 2em;
+}
+
+.questions-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for questions */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 2px solid #007bff; /* Blue border */
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+strong {
+    font-size: 1.5em; /* Larger font for question text */
+}
+
+.input-answer {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: calc(100% - 22px); /* Full width minus padding */
+    padding: 10px;
+    border: 2px solid #007bff; /* Blue border */
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #007bff; /* Calming blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.feedback {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.steps {
+    margin-top: 20px;
+    background-color: #f0f8ff; /* Very light blue background for steps */
+    border-left: 5px solid #007bff; /* Blue left border */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.highlight {
+    font-weight: bold;
+    font-size: 1.2em; /* Larger font for highlighted variables */
+    color: #ff4500; /* A calming orange for highlights */
+}
+
+.score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Blue for score */
+}
+
+.report-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff; /* White background for report card */
+}
+
+h1 {
+    color: #007bff; /* Blue for headings */
+}
